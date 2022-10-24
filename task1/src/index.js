@@ -3,10 +3,9 @@ import ReactDOM from 'react-dom/client';
 import './index.css';
 import { HelloWorld } from './HelloWorld';
 import { Counter } from './Counter';
-import { SearchForm } from "./SearchForm";
-import { GenreToggle } from "./GenreToggle";
+import { SearchForm } from './SearchForm';
+import { GenreToggle } from './GenreToggle';
 import reportWebVitals from './reportWebVitals';
-
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 

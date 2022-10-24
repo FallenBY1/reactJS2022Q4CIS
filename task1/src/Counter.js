@@ -1,29 +1,24 @@
-import React from "react";
+import React from 'react';
 
-/*
-Counter Using React.Component
- */
 export class Counter extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {
+    state = {
             counter: 0
-        }
     }
 
-    changeCounter = (increment) => {
-        if (increment) {
+    changeCounter = (e) => {
+        const shouldIncrease = !!parseInt(e.target.dataset.increase);
+        if (shouldIncrease) {
             this.setState(prevState => ({ counter: prevState.counter + 1}));
         } else {
             this.setState(prevState => ({ counter: prevState.counter - 1}));
         }
     }
 
-    render() {
-        return <div>
+    render = () => {
+        return <div onClick={this.changeCounter}>
             <p>Counter: { this.state.counter }</p>
-            <button onClick={() => this.changeCounter(true)}>Increase</button>
-            <button onClick={() => this.changeCounter(false)}>Decrease</button>
+            <button data-increase='1'>Increase</button>
+            <button data-increase='0'>Decrease</button>
         </div>
     }
 }

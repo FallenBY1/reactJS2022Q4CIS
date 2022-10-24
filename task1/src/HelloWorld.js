@@ -1,8 +1,5 @@
-import React from "react";
+import React from 'react';
 
-/*
-Using React.createElement
- */
 export function HelloWorld() {
     return [
         React.createElement(

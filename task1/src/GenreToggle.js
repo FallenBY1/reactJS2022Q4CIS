@@ -1,6 +1,6 @@
-import React from "react";
+import React from 'react';
 
-export function GenreToggle() {
+export const GenreToggle = () => {
     return (
      <div>
         <ul className='genre-list'>
