@@ -8,7 +8,7 @@ const stylesHandler = "style-loader";
 
 module.exports = {
   mode: 'development',
-  entry: "./src/index.js",
+  entry: "./src/index.tsx",
   output: {
     filename: '[name].bundle.js',
     chunkFilename: '[name].bundle.js',
@@ -40,6 +40,11 @@ module.exports = {
   module: {
     rules: [
       {
+        test: /\.tsx?$/,
+        use: 'ts-loader',
+        exclude: /node_modules/,
+      },
+      {
         test: /\.(js|jsx)$/i,
         exclude: /(node_modules|bower_components)/,
         loader: "babel-loader",
@@ -68,5 +73,8 @@ module.exports = {
         ]
       },
     ],
+  },
+  resolve: {
+    extensions: ['.tsx', '.ts', '.js'],
   },
 };
