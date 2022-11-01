@@ -1,0 +1,84 @@
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background-color: #232323;
+  color: #fff;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+}
+
+.search-form {
+  padding: 20px 0;
+}
+
+.search-field {
+  background: rgba(50, 50, 50, 0.8);
+  mix-blend-mode: normal;
+  opacity: 0.7;
+  border-radius: 4px;
+  min-width: 713px;
+
+  padding: 17px 19px 16px;
+  margin-right: 14px;
+  font-family: Montserrat, Arial, "Helvetica Neue", sans-serif;
+  font-size: 20px;
+  font-weight: 400;
+  line-height: 24px;
+  color: #fff;
+  border: 0;
+}
+
+.search-button {
+  background: #F65261;
+  border-radius: 4px;
+  height: 57px;
+  width: 233px;
+  border: 0;
+
+  font-family: Montserrat, Arial, "Helvetica Neue", sans-serif;
+  font-size: 20px;
+  font-weight: 500;
+  line-height: 24px;
+  letter-spacing: 0;
+  text-align: center;
+  text-transform: uppercase;
+
+  color: #fff;
+}
+
+.genre-list {
+  display: flex;
+  flex-direction: row;
+  list-style: none;
+  margin: 0;
+  padding: 15px 0;
+}
+
+.genre-list li {
+  margin-left: 15px;
+
+  font-family: Montserrat, Arial, "Helvetica Neue", sans-serif;
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 20px;
+  letter-spacing: 0;
+  text-align: left;
+  text-transform: uppercase;
+  cursor: pointer;
+  padding-bottom: 19px;
+}
+
+.genre-list li.selected {
+  border-bottom: 4px solid #f65261;
+}
+
+.genre-list li:first-child {
+  margin-left: 0;
+}
