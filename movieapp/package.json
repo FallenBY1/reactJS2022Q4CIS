@@ -1,14 +1,14 @@
 {
-  "name": "task2",
+  "name": "movieapp",
   "version": "1.0.0",
   "main": "src/index.tsx",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start:prod": "cross-env NODE_ENV=production webpack --config webpack.config.js",
-    "start:dev": "cross-env NODE_ENV=development webpack --config webpack.config.js",
+    "start:prod": "cross-env NODE_ENV=production webpack-dev-server --config webpack.config.js --mode=production",
+    "start:dev": "cross-env NODE_ENV=development webpack-dev-server --config webpack.config.js --mode=development",
     "build:prod": "webpack --mode=production --node-env=production",
     "build:dev": "webpack --mode=development",
-    "serve": "webpack serve",
+    "serve": "webpack serve --mode=development",
     "lint:test": "eslint src --ext .ts,.tsx",
     "lint:fix": "eslint src --fix --quiet --ext .ts,.tsx",
     "prepare": "cd.. && husky install"
@@ -74,6 +74,9 @@
     "eslint-plugin-promise": "^6.1.1",
     "eslint-plugin-react": "^7.31.10",
     "eslint-plugin-react-hooks": "^4.3.0",
+    "eslint-config-prettier": "^8.5.0",
+    "eslint-plugin-boundaries": "^3.0.0",
+    "eslint-plugin-prettier": "^4.2.1",
     "eslint-webpack-plugin": "^3.2.0",
     "html-loader": "^4.2.0",
     "html-webpack-plugin": "^5.5.0",

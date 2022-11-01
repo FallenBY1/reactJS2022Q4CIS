@@ -2,11 +2,12 @@ const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
-const ESLintPlugin = require('eslint-webpack-plugin');
 
 module.exports = {
     mode: 'production',
-    entry: ['./src/index.tsx'],
+    entry: {
+        app: "./src/index.tsx"
+    },
     output: {
         filename: '[name].bundle.js',
         chunkFilename: '[name].bundle.js',
@@ -14,22 +15,18 @@ module.exports = {
     },
     resolve: {
         modules: [path.resolve(__dirname, './src'), 'node_modules'],
-        extensions: ['.js', '.jsx', '.json']
+        extensions: ['.tsx', '.ts', '.js'],
     },
     devServer: {
-        contentBase: path.join(__dirname, 'build'),
+        static: {
+            directory: path.join(__dirname, 'build')
+        },
         compress: true,
         port: 8000,
         open: true
     },
-    optimization: {
-        splitChunks: {
-            chunks: 'all',
-        }
-    },
     plugins: [
         new CleanWebpackPlugin(),
-        new ESLintPlugin(),
         new HtmlWebpackPlugin({
             title: 'React App',
             template: 'src/index.html',
@@ -56,11 +53,15 @@ module.exports = {
                 ]
             },
             {
-                test: /\.js$/,
+                test: /\.tsx?$/,
+                use: 'ts-loader',
                 exclude: /node_modules/,
-                use: {
-                    loader: 'babel-loader'
-                }
+            },
+            {
+                test: /\.(js|jsx)$/i,
+                exclude: /(node_modules|bower_components)/,
+                loader: "babel-loader",
+                options: { presets: ["@babel/env","@babel/preset-react"] },
             },
             {
                 test: /\.scss$/,

@@ -1,6 +1,6 @@
 // Generated using webpack-cli https://github.com/webpack/webpack-cli
 
-const path = require("path");
+const path = require('path');
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
@@ -8,23 +8,19 @@ const stylesHandler = "style-loader";
 
 module.exports = {
   mode: 'development',
-  entry: "./src/index.tsx",
   output: {
     filename: '[name].bundle.js',
     chunkFilename: '[name].bundle.js',
     path: path.resolve(__dirname, 'dev')
   },
   devServer: {
-    contentBase: path.join(__dirname, 'dev'),
+    static: {
+      directory: path.join(__dirname, 'dev')
+    },
     compress: true,
     port: 9000,
     open: true,
     host: "localhost",
-  },
-  optimization: {
-    splitChunks: {
-      chunks: 'all',
-    },
   },
   plugins: [
     new CleanWebpackPlugin(),
