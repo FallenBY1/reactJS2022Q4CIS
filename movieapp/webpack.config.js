@@ -3,7 +3,7 @@ const developmentConfig = require('./webpack.config.dev')
 const productionConfig = require('./webpack.config.prod')
 
 const commonConfig = {
-    entry: "./src/index.tsx",
+    entry: './src/index.tsx',
     optimization: {
         splitChunks: {
             chunks: 'all',

@@ -6,7 +6,7 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 module.exports = {
     mode: 'production',
     entry: {
-        app: "./src/index.tsx"
+        app: './src/index.tsx'
     },
     output: {
         filename: '[name].bundle.js',
@@ -60,8 +60,8 @@ module.exports = {
             {
                 test: /\.(js|jsx)$/i,
                 exclude: /(node_modules|bower_components)/,
-                loader: "babel-loader",
-                options: { presets: ["@babel/env","@babel/preset-react"] },
+                loader: 'babel-loader',
+                options: { presets: ['@babel/env','@babel/preset-react'] },
             },
             {
                 test: /\.scss$/,
