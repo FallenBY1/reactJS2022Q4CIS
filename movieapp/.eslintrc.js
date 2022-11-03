@@ -29,9 +29,9 @@ module.exports = {
     'boundaries'
   ],
   rules: {
-    "react/jsx-uses-react": "off",
-    "react/react-in-jsx-scope": "off",
-    'linebreak-style': ['error', 'unix'],
+    'react/jsx-uses-react': 'off',
+    'react/react-in-jsx-scope': 'off',
+    'linebreak-style': ['error', 'windows'],
     'no-console': 'warn', //use loglevel-debug package instead
     '@typescript-eslint/camelcase': 'off',
     '@typescript-eslint/no-var-requires': 'off',
@@ -40,25 +40,25 @@ module.exports = {
       'error',
       { allowExpressions: true },
     ],
-    '@typescript-eslint/quotes': ['error', 'single'],
+    '@typescript-eslint/quotes': ['error', 'single']
   },
   ignorePatterns: ['*.config.js', '.env*'],
   settings: {
     react: {
-      version: "detect"
+      version: 'detect'
     },
-    "boundaries/elements": [
+    'boundaries/elements': [
       {
-        "type": "helpers",
-        "pattern": "helpers/*"
+        'type': 'helpers',
+        'pattern': 'helpers/*'
       },
       {
-        "type": "components",
-        "pattern": "components/*"
+        'type': 'components',
+        'pattern': 'components/*'
       },
       {
-        "type": "modules",
-        "pattern": "modules/*"
+        'type': 'modules',
+        'pattern': 'modules/*'
       }
     ]
   }

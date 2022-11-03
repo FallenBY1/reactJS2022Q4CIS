@@ -1,5 +1,13 @@
+import Header from './containers/header';
+import MainContent from './containers/content';
+
 function App(): JSX.Element {
-  return <p>Hello world!</p>;
+  return (
+    <>
+      <Header />
+      <MainContent />
+    </>
+  );
 }
 
 export default App;
