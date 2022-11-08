@@ -57,6 +57,14 @@ module.exports = {
         'pattern': 'components/*'
       },
       {
+        'type': 'containers',
+        'pattern': 'containers/*'
+      },
+      {
+        'type': 'pages',
+        'pattern': 'pages/*'
+      },
+      {
         'type': 'modules',
         'pattern': 'modules/*'
       }

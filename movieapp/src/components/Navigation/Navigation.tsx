@@ -27,7 +27,7 @@ const navmenu: Array<Menu> = [
   }
 ];
 
-function Navigation(): JSX.Element {
+export function Navigation(): JSX.Element {
   return (
     <ul>
       {navmenu.map((menu) => (
@@ -40,5 +40,3 @@ function Navigation(): JSX.Element {
     </ul>
   );
 }
-
-export default Navigation;

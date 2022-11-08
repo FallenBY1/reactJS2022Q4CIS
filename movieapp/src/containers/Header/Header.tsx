@@ -1,6 +1,6 @@
-import SearchForm from '../../components/searchform';
+import { SearchForm } from '../SearchForm/SearchForm';
 
-function Header(): JSX.Element {
+export function Header(): JSX.Element {
   return (
     <>
       <h1>
@@ -11,5 +11,3 @@ function Header(): JSX.Element {
     </>
   );
 }
-
-export default Header;

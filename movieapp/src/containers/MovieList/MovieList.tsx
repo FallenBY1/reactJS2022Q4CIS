@@ -1,5 +1,5 @@
-import MovieElement from './movieelement';
-import ErrorBoundary from './error-boundary';
+import { MovieCard } from '../../components/MovieCard/MovieCard';
+import { MovieListErrorBoundary } from '../../components/MovieListErrorBoundary/MovieListErrorBoundary';
 
 type Movie = {
   [id: string]: string;
@@ -30,20 +30,16 @@ const movies: Array<Movie> = [
   }
 ];
 
-const isMoviesAvailable = movies.length > 0;
-
-function MovieList(): JSX.Element {
+export function MovieList(): JSX.Element {
   return (
-    <ErrorBoundary isOk={isMoviesAvailable}>
+    <MovieListErrorBoundary>
       <div>
         {movies.map((movie) => (
           <>
-            <MovieElement title={movie.title} key={movie.id} description={movie.description} />
+            <MovieCard title={movie.title} key={movie.id} description={movie.description} />
           </>
         ))}
       </div>
-    </ErrorBoundary>
+    </MovieListErrorBoundary>
   );
 }
-
-export default MovieList;

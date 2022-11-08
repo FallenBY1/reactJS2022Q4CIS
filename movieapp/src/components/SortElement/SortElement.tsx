@@ -4,7 +4,7 @@ type SortElement = {
   link: string;
 };
 
-const sortArray: Array<SortElement> = [
+const movieSortCriterias: Array<SortElement> = [
   {
     id: '1',
     title: 'Popularity',
@@ -22,10 +22,10 @@ const sortArray: Array<SortElement> = [
   }
 ];
 
-function Sorting(): JSX.Element {
+export function SortElement(): JSX.Element {
   return (
     <select>
-      {sortArray.map((element) => (
+      {movieSortCriterias.map((element) => (
         <>
           <option key={element.id} value={element.link}>
             {element.title}
@@ -35,5 +35,3 @@ function Sorting(): JSX.Element {
     </select>
   );
 }
-
-export default Sorting;
