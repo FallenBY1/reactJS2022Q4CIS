@@ -39,15 +39,23 @@ export function Header(props:HeaderProps): JSX.Element {
             <h1>
                 <b>{t('netflix')}</b>{t('roulette')}
             </h1>
-            <Button type={'button'} onclickAction={openModal} title={t('add_movie')}/>
+            <Button
+                type={'button'}
+                onclickAction={openModal}
+                title={t('add_movie')}
+            />
             <SearchForm/>
             <Modal
                 isOpen={modalIsOpen}
                 onRequestClose={closeModal}
                 style={customStyles}
-                contentLabel="Movie Modal"
+                contentLabel="{t('label_modal')}"
             >
-                <AddEditMovieForm onCloseModal={closeModal} onAddMovie={props.setMovies} currentValue={initialMovie}  />
+                <AddEditMovieForm
+                    onCloseModal={closeModal}
+                    onAddMovie={props.setMovies}
+                    currentValue={initialMovie}
+                />
             </Modal>
         </>
     );

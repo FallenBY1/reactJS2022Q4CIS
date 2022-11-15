@@ -33,9 +33,6 @@ const moviesMock: Array<Movie> = [
     }
 ];
 
-
-
-
 export function App(): JSX.Element {
     const [movies, setMovies] = useState<any | null>(moviesMock);
 

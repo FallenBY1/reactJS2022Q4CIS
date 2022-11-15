@@ -8,13 +8,14 @@ type MovieState = {
 }
 
 export function HomePage(props:MovieState): JSX.Element {
-    // let movies:Array<Movie> = moviesMock;
-
   return (
     <>
       <Navigation key='navigation'  />
       <SortElement key='sortelement' />
-      <MovieList setMovies={props.setMovies} movies={props.movies} />
+      <MovieList
+          setMovies={props.setMovies}
+          movies={props.movies}
+      />
     </>
   );
 }
