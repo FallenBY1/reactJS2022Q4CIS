@@ -5,8 +5,7 @@ type ErrorProps = {
 };
 
 export function MovieListErrorBoundary(props: ErrorProps): JSX.Element {
-  const hasError = false;
-  const setHasError: [boolean, React.Dispatch<React.SetStateAction<boolean>>] = useState(false);
+  let { hasError, setHasError }:any = useState(false);
   const ErrorText = (): JSX.Element => <h3>Error, please try again later</h3>;
 
   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
@@ -25,5 +24,5 @@ export function MovieListErrorBoundary(props: ErrorProps): JSX.Element {
     setHasError({ hasError: error });
   }
 
-  return <>{hasError ? props.children : <ErrorText />}</>;
+  return <>{hasError ? <ErrorText /> : props.children }</>;
 }

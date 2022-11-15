@@ -2,12 +2,19 @@ import { Navigation } from '../../components/Navigation/Navigation';
 import { SortElement } from '../../components/SortElement/SortElement';
 import { MovieList } from '../../containers/MovieList/MovieList';
 
-export function HomePage(): JSX.Element {
+type MovieState = {
+    setMovies: Function;
+    movies: [];
+}
+
+export function HomePage(props:MovieState): JSX.Element {
+    // let movies:Array<Movie> = moviesMock;
+
   return (
     <>
-      <Navigation />
-      <SortElement />
-      <MovieList />
+      <Navigation key='navigation'  />
+      <SortElement key='sortelement' />
+      <MovieList setMovies={props.setMovies} movies={props.movies} />
     </>
   );
 }

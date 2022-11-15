@@ -1,3 +1,5 @@
+import {Fragment} from "react";
+
 type SortElement = {
   [id: string]: string;
   title: string;
@@ -26,11 +28,11 @@ export function SortElement(): JSX.Element {
   return (
     <select>
       {movieSortCriterias.map((element) => (
-        <>
-          <option key={element.id} value={element.link}>
+        <Fragment key={element.id}>
+          <option value={element.link}>
             {element.title}
           </option>
-        </>
+        </Fragment>
       ))}
     </select>
   );
