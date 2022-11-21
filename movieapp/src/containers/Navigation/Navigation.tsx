@@ -1,10 +1,5 @@
-import {Fragment} from "react";
-
-type Menu = {
-  [id: string]: string;
-  title: string;
-  link: string;
-};
+import { Fragment } from 'react';
+import { Menu } from '../../models/types';
 
 const navmenu: Array<Menu> = [
   {

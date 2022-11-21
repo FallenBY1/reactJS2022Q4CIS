@@ -1,79 +1,46 @@
-import {Button} from "../../components/Button/Button";
-import {useTranslation} from "react-i18next";
+import { Button } from '../../components/Button/Button';
+import { useTranslation } from 'react-i18next';
+import { CONSTANTS } from '../../services/constants';
+import { MovieFormProps } from '../../models/types';
+import { ButtonTypes } from '../../models/enums';
 
-type MovieProps = {
-    title: string | '';
-    description: string | '';
-    key: string | '';
-}
+export function AddEditMovieForm(props: MovieFormProps): JSX.Element {
+  const { t } = useTranslation();
 
-type MovieFormProps = {
-    onCloseModal: Function;
-    onAddMovie: Function;
-    currentValue:MovieProps;
-}
+  const submitForm = (e: any): any => {
+    e.preventDefault();
+    const title = e.target.elements.title.value;
+    const description = e.target.elements.description.value;
+    const id = e.target.elements.id.value || `${title}_${description}_${Math.random().toString()}`;
 
-export function AddEditMovieForm(props:MovieFormProps): JSX.Element {
-    const {t} = useTranslation();
-    const currentValueToEdit = props.currentValue;
-
-    const submitForm = (e:any) => {
-        const title = e.target.elements.movieTitle.value;
-        const description = e.target.elements.movieDescription.value;
-        let key = e.target.elements.movieKey.value;
-
-        if (!key) {
-            key = `${title}_${description}_${Math.random().toString()}`;
-            props.onAddMovie((prev: any) => {
-                return [...prev, {key, title, description}];
-            });
-        } else {
-            props.onAddMovie((prev: any) => {
-                return prev.map((el:any) => el.key === key ? {key, title, description} : el);
-            });
-        }
-        props.onCloseModal();
+    if (!e.target.elements.id.value) {
+      props.onAddMovie((prev: any) => {
+        return [...prev, { id, title, description }];
+      });
+    } else {
+      props.onAddMovie((prev: any) => {
+        return prev.map((el: any) => (el.id === id ? { id, title, description } : el));
+      });
     }
+    props.onCloseModal();
+  };
 
-    const closeModal = () => {
-        props.onCloseModal();
-    }
-
-    return (
-        <>
-            <h2>{t('add_form_title')}</h2>
-            <Button
-                type={'button'}
-                onclickAction={closeModal}
-                title={t('label_close')}
-            />
-            <form id='modalForm' onSubmit={submitForm}>
-                <label htmlFor="movieTitle">
-                    {t('label_title')}:
-                    <input
-                        type="text"
-                        id={'movieTitle'}
-                        defaultValue={currentValueToEdit.title}
-                    />
-                </label>
-                <label htmlFor="movieDescription">
-                    {t('label_description')}:
-                    <input
-                        type="text"
-                        id={'movieDescription'}
-                        defaultValue={currentValueToEdit.description}
-                    />
-                </label>
-                <input
-                    type="hidden"
-                    id={'movieKey'}
-                    defaultValue={currentValueToEdit.key}
-                />
-                <Button
-                    title={t('submit')}
-                    type={'submit'}
-                />
-            </form>
-        </>
-    );
+  return (
+    <>
+      <h2>{t(CONSTANTS.ADD_FORM_TITLE)}</h2>
+      <Button type={ButtonTypes.button} onClick={props.onCloseModal} title={t(CONSTANTS.LABEL_CLOSE)} />
+      <form id="modalForm" onSubmit={submitForm}>
+        <label htmlFor="title">
+          {t(CONSTANTS.LABEL_TITLE)}:
+          <input type="text" id={'title'} defaultValue={props.currentValue.title} />
+        </label>
+        <label htmlFor="description">
+          {t(CONSTANTS.LABEL_DESCRIPTION)}:
+          <input type="text" id={'description'} defaultValue={props.currentValue.description} />
+        </label>
+        <input type="hidden" id={'id'} defaultValue={props.currentValue.id} />
+        <Button title={t(CONSTANTS.SUBMIT)} type={ButtonTypes.submit} />
+      </form>
+    </>
+  );
 }

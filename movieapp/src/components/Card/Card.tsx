@@ -1,9 +1,6 @@
-type MovieProps = {
-  title: string;
-  description: string;
-};
+import { MovieProps } from '../../models/types';
 
-export function MovieCard(props: MovieProps): JSX.Element {
+export function Card(props: MovieProps): JSX.Element {
   return (
     <>
       <div>

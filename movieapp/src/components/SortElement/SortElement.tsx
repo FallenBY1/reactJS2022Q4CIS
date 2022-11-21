@@ -1,10 +1,4 @@
-import {Fragment} from "react";
-
-type SortElement = {
-  [id: string]: string;
-  title: string;
-  link: string;
-};
+import { SortElement } from '../../models/types';
 
 const movieSortCriterias: Array<SortElement> = [
   {
@@ -28,11 +22,9 @@ export function SortElement(): JSX.Element {
   return (
     <select>
       {movieSortCriterias.map((element) => (
-        <Fragment key={element.id}>
-          <option value={element.link}>
-            {element.title}
-          </option>
-        </Fragment>
+        <option key={element.id} value={element.link}>
+          {element.title}
+        </option>
       ))}
     </select>
   );

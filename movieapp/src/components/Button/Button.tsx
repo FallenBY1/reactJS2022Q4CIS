@@ -1,18 +1,9 @@
-type Button = {
-  title: string;
-  type: 'submit' | 'reset' | 'button';
-  onclickAction?: React.MouseEventHandler<HTMLButtonElement>;
-  movieId?: string;
-};
+import { Button } from '../../models/types';
 
 export function Button(props: Button): JSX.Element {
   return (
-    <>
-      <button
-          type={props.type}
-          onClick={props.onclickAction}>
-        {props.title}
-      </button>
-    </>
+    <button type={props.type} onClick={props.onClick}>
+      {props.title}
+    </button>
   );
 }
