@@ -37,7 +37,7 @@ export type MovieState = {
 
 export type MovieFormProps = {
   onCloseModal: () => void;
-  onAddMovie: (prev: any) => Function;
+  onAddMovie: (prev: any) => void;
   currentValue: MovieProps;
 };
 
