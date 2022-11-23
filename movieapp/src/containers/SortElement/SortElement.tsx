@@ -1,4 +1,5 @@
 import { SortElement } from '../../models/types';
+import { Option } from '../../components/Option/Option';
 
 const movieSortCriterias: Array<SortElement> = [
   {
@@ -22,9 +23,7 @@ export function SortElement(): JSX.Element {
   return (
     <select>
       {movieSortCriterias.map((element) => (
-        <option key={element.id} value={element.link}>
-          {element.title}
-        </option>
+        <Option key={element.id} title={element.title} link={element.link} />
       ))}
     </select>
   );
