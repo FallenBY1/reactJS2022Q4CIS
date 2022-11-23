@@ -1,8 +1,5 @@
-type Menu = {
-  [id: string]: string;
-  title: string;
-  link: string;
-};
+import { Fragment } from 'react';
+import { Menu } from '../../models/types';
 
 const navmenu: Array<Menu> = [
   {
@@ -11,17 +8,17 @@ const navmenu: Array<Menu> = [
     link: 'all'
   },
   {
-    id: 'all',
+    id: 'all1',
     title: 'Documentary',
     link: 'documentary'
   },
   {
-    id: 'all',
+    id: 'all2',
     title: 'Comedy',
     link: 'comedy'
   },
   {
-    id: 'all',
+    id: 'all3',
     title: 'Drama',
     link: 'drama'
   }
@@ -31,11 +28,11 @@ export function Navigation(): JSX.Element {
   return (
     <ul>
       {navmenu.map((menu) => (
-        <>
-          <li key={menu.id}>
+        <Fragment key={menu.id}>
+          <li>
             <a href={menu.link}>{menu.title}</a>
           </li>
-        </>
+        </Fragment>
       ))}
     </ul>
   );

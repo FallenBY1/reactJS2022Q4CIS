@@ -1,11 +1,9 @@
-type Button = {
-  title: string;
-};
+import { Button } from '../../models/types';
 
-export function Button({ title = 'Button title' }: Button): JSX.Element {
+export function Button(props: Button): JSX.Element {
   return (
-    <>
-      <button type="button">{title}</button>
-    </>
+    <button type={props.type} onClick={props.onClick}>
+      {props.title}
+    </button>
   );
 }

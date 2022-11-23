@@ -1,8 +1,4 @@
-type SortElement = {
-  [id: string]: string;
-  title: string;
-  link: string;
-};
+import { SortElement } from '../../models/types';
 
 const movieSortCriterias: Array<SortElement> = [
   {
@@ -26,11 +22,9 @@ export function SortElement(): JSX.Element {
   return (
     <select>
       {movieSortCriterias.map((element) => (
-        <>
-          <option key={element.id} value={element.link}>
-            {element.title}
-          </option>
-        </>
+        <option key={element.id} value={element.link}>
+          {element.title}
+        </option>
       ))}
     </select>
   );

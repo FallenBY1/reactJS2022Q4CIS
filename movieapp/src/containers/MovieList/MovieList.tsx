@@ -1,45 +1,68 @@
-import { MovieCard } from '../../components/MovieCard/MovieCard';
-import { MovieListErrorBoundary } from '../../components/MovieListErrorBoundary/MovieListErrorBoundary';
+import { Card } from '../../components/Card/Card';
+import { ErrorBoundary } from '../../components/ErrorBoundary/ErrorBoundary';
+import { Fragment, useState } from 'react';
+import { Button } from '../../components/Button/Button';
+import Modal from 'react-modal';
+import { AddEditMovieForm } from '../AddEditMovieForm/AddEditMovieForm';
+import { useTranslation } from 'react-i18next';
+import { CONSTANTS } from '../../services/constants';
+import { Movie, MovieState } from '../../models/types';
+import { ButtonTypes } from '../../models/enums';
 
-type Movie = {
-  [id: string]: string;
-  title: string;
-  description: string;
+//move to component avoid duplicate
+const customStyles = {
+  content: {
+    top: '50%',
+    left: '50%',
+    right: 'auto',
+    bottom: 'auto',
+    marginRight: '-50%',
+    transform: 'translate(-50%, -50%)'
+  }
 };
 
-const movies: Array<Movie> = [
-  {
-    id: '1',
-    title: 'Movie 1',
-    description: 'Description for Movie 1'
-  },
-  {
-    id: '2',
-    title: 'Movie 2',
-    description: 'Description for Movie 2'
-  },
-  {
-    id: '3',
-    title: 'Movie 3',
-    description: 'Description for Movie 3'
-  },
-  {
-    id: '4',
-    title: 'Movie 4',
-    description: 'Description for Movie 4'
-  }
-];
+export function MovieList(props: MovieState): JSX.Element {
+  const [modalIsOpen, setIsOpen] = useState(false);
+  const [currentMovie, setCurrentMovie]: any = useState({ title: '', description: '', id: '' });
+  const { t } = useTranslation();
 
-export function MovieList(): JSX.Element {
+  Modal.setAppElement('body');
+
+  function openModal(key: string): any {
+    setCurrentMovie(props.movies.filter((movie: Movie) => movie.id === key)[0]);
+    setIsOpen(true);
+  }
+
+  function deleteMovie(key: string): any {
+    if (window.confirm('Delete?')) {
+      const newArray: Movie[] = [];
+      props.movies.find((el: Movie) => {
+        if (el.id !== key) {
+          newArray.push(el);
+        }
+      });
+      props.setMovies(newArray);
+    }
+  }
+
+  const closeModal = (): any => {
+    setIsOpen(false);
+  };
+
   return (
-    <MovieListErrorBoundary>
+    <ErrorBoundary>
       <div>
-        {movies.map((movie) => (
-          <>
-            <MovieCard title={movie.title} key={movie.id} description={movie.description} />
-          </>
+        {Object.values(props.movies).map((movie) => (
+          <Fragment key={movie.id}>
+            <Card title={movie.title} description={movie.description} />
+            <Button title={t(CONSTANTS.LABEL_EDIT)} type={ButtonTypes.button} onClick={() => openModal(movie.id)} />
+            <Button title={t(CONSTANTS.LABEL_DELETE)} type={ButtonTypes.button} onClick={() => deleteMovie(movie.id)} />
+          </Fragment>
         ))}
+        <Modal isOpen={modalIsOpen} onRequestClose={closeModal} style={customStyles} contentLabel={t(CONSTANTS.LABEL_MODAL)}>
+          <AddEditMovieForm onCloseModal={closeModal} onAddMovie={props.setMovies} currentValue={currentMovie} />
+        </Modal>
       </div>
-    </MovieListErrorBoundary>
+    </ErrorBoundary>
   );
 }
