@@ -1,5 +1,5 @@
 import { Navigation } from '../../containers/Navigation/Navigation';
-import { SortElement } from '../../components/SortElement/SortElement';
+import { SortElement } from '../../containers/SortElement/SortElement';
 import { MovieList } from '../../containers/MovieList/MovieList';
 import { MovieState } from '../../models/types';
 
