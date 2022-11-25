@@ -7,6 +7,7 @@ import { Button } from '../../components/Button/Button';
 import { CONSTANTS } from '../../services/constants';
 import { HeaderProps } from '../../models/types';
 import { ButtonTypes } from '../../models/enums';
+import { MovieDetails } from '../MovieDetails/MovieDetails';
 
 const customStyles = {
   content: {
@@ -39,7 +40,8 @@ export function Header(props: HeaderProps): JSX.Element {
         {t(CONSTANTS.ROULETTE)}
       </h1>
       <Button type={ButtonTypes.button} onClick={openModal} title={t(CONSTANTS.ADD_MOVIE)} />
-      <SearchForm />
+      {!props.expandedMovie ? <SearchForm /> : ''}
+      {props.expandedMovie ? <MovieDetails expandedMovie={props.expandedMovie} setExpandedMovie={props.setExpandedMovie} /> : ''}
       <Modal isOpen={modalIsOpen} onRequestClose={closeModal} style={customStyles} contentLabel={t(CONSTANTS.LABEL_MODAL)}>
         <AddEditMovieForm onCloseModal={closeModal} onAddMovie={props.setMovies} currentValue={{ title: '', description: '', id: '' }} />
       </Modal>

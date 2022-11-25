@@ -28,6 +28,10 @@ export function MovieList(props: MovieState): JSX.Element {
 
   Modal.setAppElement('body');
 
+  function showDetails(key: string): any {
+    props.setExpandedMovie(props.movies.filter((movie: Movie) => movie.id === key)[0]);
+  }
+
   function openModal(key: string): any {
     setCurrentMovie(props.movies.filter((movie: Movie) => movie.id === key)[0]);
     setIsOpen(true);
@@ -54,7 +58,7 @@ export function MovieList(props: MovieState): JSX.Element {
       <div>
         {Object.values(props.movies).map((movie) => (
           <Fragment key={movie.id}>
-            <Card title={movie.title} description={movie.description} />
+            <Card title={movie.title} description={movie.description} onClick={() => showDetails(movie.id)} />
             <Button title={t(CONSTANTS.LABEL_EDIT)} type={ButtonTypes.button} onClick={() => openModal(movie.id)} />
             <Button title={t(CONSTANTS.LABEL_DELETE)} type={ButtonTypes.button} onClick={() => deleteMovie(movie.id)} />
           </Fragment>

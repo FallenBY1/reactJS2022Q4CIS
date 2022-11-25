@@ -10,6 +10,8 @@ export type ErrorProps = {
 
 export type HeaderProps = {
   setMovies: any;
+  expandedMovie: any;
+  setExpandedMovie: any;
 };
 
 export type Menu = {
@@ -22,17 +24,26 @@ export type Movie = {
   [id: string]: string;
   title: string;
   description: string;
+  fullDescription: string;
+};
+
+export type expandedMovieProps = {
+  expandedMovie: any;
+  setExpandedMovie: any;
 };
 
 export type MovieProps = {
+  onClick?: React.MouseEventHandler<HTMLDivElement>;
   id?: string;
   title: string;
   description: string;
+  fullDescription?: string;
 };
 
 export type MovieState = {
   setMovies: any;
   movies: Movie[];
+  setExpandedMovie: any;
 };
 
 export type MovieFormProps = {

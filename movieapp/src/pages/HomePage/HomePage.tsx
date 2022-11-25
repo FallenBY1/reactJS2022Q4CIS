@@ -8,7 +8,7 @@ export function HomePage(props: MovieState): JSX.Element {
     <>
       <Navigation />
       <SortElement />
-      <MovieList setMovies={props.setMovies} movies={props.movies} />
+      <MovieList setMovies={props.setMovies} movies={props.movies} setExpandedMovie={props.setExpandedMovie} />
     </>
   );
 }

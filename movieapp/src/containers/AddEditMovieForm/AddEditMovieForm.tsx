@@ -11,15 +11,16 @@ export function AddEditMovieForm(props: MovieFormProps): JSX.Element {
     e.preventDefault();
     const title = e.target.elements.title.value;
     const description = e.target.elements.description.value;
+    const fullDescription = e.target.elements.fullDescription.value;
     const id = e.target.elements.id.value || `${title}_${description}_${Math.random().toString()}`;
 
     if (!e.target.elements.id.value) {
       props.onAddMovie((prev: any) => {
-        return [...prev, { id, title, description }];
+        return [...prev, { id, title, description, fullDescription }];
       });
     } else {
       props.onAddMovie((prev: any) => {
-        return prev.map((el: any) => (el.id === id ? { id, title, description } : el));
+        return prev.map((el: any) => (el.id === id ? { id, title, description, fullDescription } : el));
       });
     }
     props.onCloseModal();
@@ -37,6 +38,10 @@ export function AddEditMovieForm(props: MovieFormProps): JSX.Element {
         <label htmlFor="description">
           {t(CONSTANTS.LABEL_DESCRIPTION)}:
           <input type="text" id={'description'} defaultValue={props.currentValue.description} />
+        </label>
+        <label htmlFor="description">
+          {t(CONSTANTS.LABEL_DESCRIPTION_FULL)}:
+          <input type="text" id={'fullDescription'} defaultValue={props.currentValue.fullDescription} />
         </label>
         <input type="hidden" id={'id'} defaultValue={props.currentValue.id} />
         <Button title={t(CONSTANTS.SUBMIT)} type={ButtonTypes.submit} />
