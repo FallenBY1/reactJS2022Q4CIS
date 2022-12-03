@@ -1,26 +1,27 @@
 import { Button } from '../../components/Button/Button';
 import { useTranslation } from 'react-i18next';
 import { CONSTANTS } from '../../services/constants';
-import { MovieFormProps } from '../../models/types';
+import { Movie, MovieFormProps } from '../../models/types';
 import { ButtonTypes } from '../../models/enums';
+import { FormEvent } from 'react';
 
 export function AddEditMovieForm(props: MovieFormProps): JSX.Element {
   const { t } = useTranslation();
 
-  const submitForm = (e: any): any => {
+  const submitForm = (e: FormEvent<HTMLFormElement>): void => {
     e.preventDefault();
-    const title = e.target.elements.title.value;
-    const description = e.target.elements.description.value;
-    const fullDescription = e.target.elements.fullDescription.value;
-    const id = e.target.elements.id.value || `${title}_${description}_${Math.random().toString()}`;
+    const title = e.currentTarget.title;
+    const description = e.currentTarget.description;
+    const fullDescription = e.currentTarget.fullDescription;
+    const id = e.currentTarget.id || `${title}_${description}_${Math.random().toString()}`;
 
-    if (!e.target.elements.id.value) {
-      props.onAddMovie((prev: any) => {
+    if (!e.currentTarget.id) {
+      props.onAddMovie((prev: Movie[]) => {
         return [...prev, { id, title, description, fullDescription }];
       });
     } else {
-      props.onAddMovie((prev: any) => {
-        return prev.map((el: any) => (el.id === id ? { id, title, description, fullDescription } : el));
+      props.onAddMovie((prev: Movie[]) => {
+        return prev.map((el) => (el.id === id ? { id, title, description, fullDescription } : el));
       });
     }
     props.onCloseModal();
@@ -31,15 +32,15 @@ export function AddEditMovieForm(props: MovieFormProps): JSX.Element {
       <h2>{t(CONSTANTS.ADD_FORM_TITLE)}</h2>
       <Button type={ButtonTypes.button} onClick={props.onCloseModal} title={t(CONSTANTS.LABEL_CLOSE)} />
       <form id="modalForm" onSubmit={submitForm}>
-        <label htmlFor="title">
+        <label>
           {t(CONSTANTS.LABEL_TITLE)}:
           <input type="text" id={'title'} defaultValue={props.currentValue.title} />
         </label>
-        <label htmlFor="description">
+        <label>
           {t(CONSTANTS.LABEL_DESCRIPTION)}:
           <input type="text" id={'description'} defaultValue={props.currentValue.description} />
         </label>
-        <label htmlFor="description">
+        <label>
           {t(CONSTANTS.LABEL_DESCRIPTION_FULL)}:
           <input type="text" id={'fullDescription'} defaultValue={props.currentValue.fullDescription} />
         </label>

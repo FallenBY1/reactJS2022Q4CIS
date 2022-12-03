@@ -1,3 +1,5 @@
+import { Dispatch, SetStateAction } from 'react';
+
 export type Button = {
   title: string;
   type: 'submit' | 'reset' | 'button';
@@ -8,9 +10,13 @@ export type ErrorProps = {
   children: JSX.Element;
 };
 
+export interface IError {
+  hasError: boolean;
+}
+
 export type HeaderProps = {
-  setMovies: any;
-  expandedMovie: any;
+  setMovies: Dispatch<SetStateAction<Movie[]>>;
+  expandedMovie: Movie | undefined;
   setExpandedMovie: any;
 };
 
@@ -27,9 +33,16 @@ export type Movie = {
   fullDescription: string;
 };
 
+export interface IMovie {
+  [id: string]: string;
+  title: string;
+  description: string;
+  fullDescription: string;
+}
+
 export type expandedMovieProps = {
-  expandedMovie: any;
-  setExpandedMovie: any;
+  expandedMovie: Movie;
+  setExpandedMovie: React.MouseEventHandler<HTMLButtonElement>;
 };
 
 export type MovieProps = {
@@ -41,14 +54,14 @@ export type MovieProps = {
 };
 
 export type MovieState = {
-  setMovies: any;
+  setMovies: Dispatch<SetStateAction<Movie[]>>;
   movies: Movie[];
-  setExpandedMovie: any;
+  setExpandedMovie: Dispatch<SetStateAction<Movie | undefined>>;
 };
 
 export type MovieFormProps = {
   onCloseModal: () => void;
-  onAddMovie: (prev: any) => void;
+  onAddMovie: Dispatch<SetStateAction<Movie[]>>;
   currentValue: MovieProps;
 };
 

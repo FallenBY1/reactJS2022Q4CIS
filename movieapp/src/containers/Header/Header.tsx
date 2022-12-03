@@ -25,11 +25,11 @@ export function Header(props: HeaderProps): JSX.Element {
   const { t } = useTranslation();
   const [modalIsOpen, setIsOpen] = useState(false);
 
-  function openModal(): any {
+  function openModal(): void {
     setIsOpen(true);
   }
 
-  const closeModal = (): any => {
+  const closeModal = (): void => {
     setIsOpen(false);
   };
 

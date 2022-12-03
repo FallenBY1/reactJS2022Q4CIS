@@ -34,7 +34,7 @@ const moviesMock: Array<Movie> = [
 
 export function App(): JSX.Element {
   const [movies, setMovies] = useState<Movie[]>([]);
-  const [expandedMovie, setExpandedMovie]: any = useState();
+  const [expandedMovie, setExpandedMovie] = useState<Movie>();
 
   useEffect(() => {
     Promise.resolve(moviesMock).then((movies) => setMovies(movies));

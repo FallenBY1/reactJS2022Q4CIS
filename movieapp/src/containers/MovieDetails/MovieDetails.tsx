@@ -7,15 +7,11 @@ import { ButtonTypes } from '../../models/enums';
 export function MovieDetails(props: expandedMovieProps): JSX.Element {
   const { t } = useTranslation();
 
-  function closeMovieDetails(): void {
-    props.setExpandedMovie();
-  }
-
   return (
     <>
       <h2>{props.expandedMovie.title}</h2>
       <p>{props.expandedMovie.fullDescription}</p>
-      <Button title={t(CONSTANTS.LABEL_CLOSE)} type={ButtonTypes.button} onClick={closeMovieDetails} />
+      <Button title={t(CONSTANTS.LABEL_CLOSE)} type={ButtonTypes.button} onClick={props.setExpandedMovie} />
     </>
   );
 }

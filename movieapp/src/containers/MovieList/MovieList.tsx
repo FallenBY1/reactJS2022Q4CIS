@@ -6,7 +6,7 @@ import Modal from 'react-modal';
 import { AddEditMovieForm } from '../AddEditMovieForm/AddEditMovieForm';
 import { useTranslation } from 'react-i18next';
 import { CONSTANTS } from '../../services/constants';
-import { Movie, MovieState } from '../../models/types';
+import { IMovie, Movie, MovieState } from '../../models/types';
 import { ButtonTypes } from '../../models/enums';
 
 //move to component avoid duplicate
@@ -23,21 +23,21 @@ const customStyles = {
 
 export function MovieList(props: MovieState): JSX.Element {
   const [modalIsOpen, setIsOpen] = useState(false);
-  const [currentMovie, setCurrentMovie]: any = useState({ title: '', description: '', id: '' });
+  const [currentMovie, setCurrentMovie] = useState<IMovie>({ fullDescription: '', title: '', description: '', id: '' });
   const { t } = useTranslation();
 
   Modal.setAppElement('body');
 
-  function showDetails(key: string): any {
+  function showDetails(key: string): void {
     props.setExpandedMovie(props.movies.filter((movie: Movie) => movie.id === key)[0]);
   }
 
-  function openModal(key: string): any {
+  function openModal(key: string): void {
     setCurrentMovie(props.movies.filter((movie: Movie) => movie.id === key)[0]);
     setIsOpen(true);
   }
 
-  function deleteMovie(key: string): any {
+  function deleteMovie(key: string): void {
     if (window.confirm('Delete?')) {
       const newArray: Movie[] = [];
       props.movies.find((el: Movie) => {
@@ -49,7 +49,7 @@ export function MovieList(props: MovieState): JSX.Element {
     }
   }
 
-  const closeModal = (): any => {
+  const closeModal = (): void => {
     setIsOpen(false);
   };
 
