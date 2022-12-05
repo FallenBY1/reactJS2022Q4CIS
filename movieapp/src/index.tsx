@@ -1,16 +1,10 @@
-import * as ReactDOM from 'react-dom';
 import { App } from './App';
-import { useEffect } from 'react';
 import { createRoot } from 'react-dom/client';
 
-function AppWithCallbackAfterRender() {
-  useEffect(() => {
-    console.log('rendered');
-  });
-
-  return <App />
+function AppWithCallbackAfterRender(): JSX.Element {
+  return <App />;
 }
 
 const container = document.getElementById('root');
-const root = createRoot(container!);
+const root = createRoot(container as Element);
 root.render(<AppWithCallbackAfterRender />);

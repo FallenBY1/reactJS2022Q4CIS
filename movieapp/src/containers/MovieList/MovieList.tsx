@@ -1,6 +1,6 @@
 import { Card } from '../../components/Card/Card';
 import { ErrorBoundary } from '../../components/ErrorBoundary/ErrorBoundary';
-import { Fragment, useState } from 'react';
+import { Fragment, useCallback, useState } from 'react';
 import { Button } from '../../components/Button/Button';
 import Modal from 'react-modal';
 import { AddEditMovieForm } from '../AddEditMovieForm/AddEditMovieForm';
@@ -22,15 +22,21 @@ const customStyles = {
 };
 
 export function MovieList(props: MovieState): JSX.Element {
+  const moviesList = props.movies;
+  const setExpandedMovieAction = props.setExpandedMovie;
+
   const [modalIsOpen, setIsOpen] = useState(false);
   const [currentMovie, setCurrentMovie] = useState<IMovie>({ fullDescription: '', title: '', description: '', id: '' });
   const { t } = useTranslation();
 
   Modal.setAppElement('body');
 
-  function showDetails(key: string): void {
-    props.setExpandedMovie(props.movies.filter((movie: Movie) => movie.id === key)[0]);
-  }
+  const showDetails = useCallback(
+    (key: string): void => {
+      setExpandedMovieAction(moviesList.filter((movie: Movie) => movie.id === key)[0]);
+    },
+    [moviesList, setExpandedMovieAction]
+  );
 
   function openModal(key: string): void {
     setCurrentMovie(props.movies.filter((movie: Movie) => movie.id === key)[0]);
