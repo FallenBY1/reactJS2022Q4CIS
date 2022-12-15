@@ -1,4 +1,4 @@
-import { Button } from '../../models/types';
+import { Button } from './ButtonTypes';
 
 export function Button(props: Button): JSX.Element {
   return (

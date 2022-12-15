@@ -1,5 +1,5 @@
 import { Fragment } from 'react';
-import { Menu } from '../../models/types';
+import { Menu } from './NavigationTypes';
 
 const navmenu: Array<Menu> = [
   {

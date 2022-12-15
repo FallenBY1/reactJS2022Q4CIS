@@ -1,4 +1,4 @@
-import { SortElement } from '../../models/types';
+import { SortElement } from './SortElementTypes';
 import { Option } from '../../components/Option/Option';
 
 const movieSortCriterias: Array<SortElement> = [
