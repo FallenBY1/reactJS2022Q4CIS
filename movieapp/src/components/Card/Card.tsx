@@ -1,4 +1,4 @@
-import { MovieProps } from '../../models/types';
+import { MovieProps } from './CardTypes';
 
 export function Card(props: MovieProps): JSX.Element {
   return (

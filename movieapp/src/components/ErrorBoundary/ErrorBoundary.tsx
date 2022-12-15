@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { ErrorProps, IError } from '../../models/types';
+import { ErrorProps, IError } from './ErrorBoundaryTypes';
 
 export function ErrorBoundary(props: ErrorProps): JSX.Element {
   const [hasError, setHasError] = useState<IError>({ hasError: false });

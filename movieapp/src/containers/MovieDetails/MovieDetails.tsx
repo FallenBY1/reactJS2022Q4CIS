@@ -1,7 +1,7 @@
 import { useTranslation } from 'react-i18next';
-import { expandedMovieProps } from '../../models/types';
+import { expandedMovieProps } from './MovieDetailsTypes';
 import { Button } from '../../components/Button/Button';
-import { CONSTANTS } from '../../services/constants';
+import { Localization } from '../../services/constants';
 import { ButtonTypes } from '../../models/enums';
 
 export function MovieDetails(props: expandedMovieProps): JSX.Element {
@@ -11,7 +11,7 @@ export function MovieDetails(props: expandedMovieProps): JSX.Element {
     <>
       <h2>{props.expandedMovie.title}</h2>
       <p>{props.expandedMovie.fullDescription}</p>
-      <Button title={t(CONSTANTS.LABEL_CLOSE)} type={ButtonTypes.button} onClick={props.setExpandedMovie} />
+      <Button title={t(Localization.LABEL_CLOSE)} type={ButtonTypes.button} onClick={props.setExpandedMovie} />
     </>
   );
 }

@@ -5,9 +5,10 @@ import { Button } from '../../components/Button/Button';
 import Modal from 'react-modal';
 import { AddEditMovieForm } from '../AddEditMovieForm/AddEditMovieForm';
 import { useTranslation } from 'react-i18next';
-import { CONSTANTS } from '../../services/constants';
-import { IMovie, Movie, MovieState } from '../../models/types';
+import { Localization } from '../../services/constants';
+import { IMovie, MovieType } from '../../models/Movie';
 import { ButtonTypes } from '../../models/enums';
+import useNewMovies from '../../hooks/MovieContext';
 
 //move to component avoid duplicate
 const customStyles = {
@@ -21,10 +22,8 @@ const customStyles = {
   }
 };
 
-export function MovieList(props: MovieState): JSX.Element {
-  const moviesList = props.movies;
-  const setExpandedMovieAction = props.setExpandedMovie;
-
+export function MovieList(props: any): any {
+  const { newMovies, addNewMovies, updateNewMovies, deleteNewMovies } = useNewMovies();
   const [modalIsOpen, setIsOpen] = useState(false);
   const [currentMovie, setCurrentMovie] = useState<IMovie>({ fullDescription: '', title: '', description: '', id: '' });
   const { t } = useTranslation();
@@ -32,26 +31,20 @@ export function MovieList(props: MovieState): JSX.Element {
   Modal.setAppElement('body');
 
   const showDetails = useCallback(
-    (key: string): void => {
-      setExpandedMovieAction(moviesList.filter((movie: Movie) => movie.id === key)[0]);
+    (id: string): void => {
+      props.setExpandedMovie(newMovies.find((movie: MovieType) => movie.id === id));
     },
-    [moviesList, setExpandedMovieAction]
+    [props, newMovies]
   );
 
-  function openModal(key: string): void {
-    setCurrentMovie(props.movies.filter((movie: Movie) => movie.id === key)[0]);
+  function openModal(id: string): void {
+    setCurrentMovie(newMovies.filter((movie: MovieType) => movie.id === id)[0]);
     setIsOpen(true);
   }
 
-  function deleteMovie(key: string): void {
+  function deleteMovie(id: string): void {
     if (window.confirm('Delete?')) {
-      const newArray: Movie[] = [];
-      props.movies.find((el: Movie) => {
-        if (el.id !== key) {
-          newArray.push(el);
-        }
-      });
-      props.setMovies(newArray);
+      deleteNewMovies(id);
     }
   }
 
@@ -62,15 +55,15 @@ export function MovieList(props: MovieState): JSX.Element {
   return (
     <ErrorBoundary>
       <div>
-        {Object.values(props.movies).map((movie) => (
+        {Object.values(newMovies).map((movie: any) => (
           <Fragment key={movie.id}>
             <Card title={movie.title} description={movie.description} onClick={() => showDetails(movie.id)} />
-            <Button title={t(CONSTANTS.LABEL_EDIT)} type={ButtonTypes.button} onClick={() => openModal(movie.id)} />
-            <Button title={t(CONSTANTS.LABEL_DELETE)} type={ButtonTypes.button} onClick={() => deleteMovie(movie.id)} />
+            <Button title={t(Localization.LABEL_EDIT)} type={ButtonTypes.button} onClick={() => openModal(movie.id)} />
+            <Button title={t(Localization.LABEL_DELETE)} type={ButtonTypes.button} onClick={() => deleteMovie(movie.id)} />
           </Fragment>
         ))}
-        <Modal isOpen={modalIsOpen} onRequestClose={closeModal} style={customStyles} contentLabel={t(CONSTANTS.LABEL_MODAL)}>
-          <AddEditMovieForm onCloseModal={closeModal} onAddMovie={props.setMovies} currentValue={currentMovie} />
+        <Modal isOpen={modalIsOpen} onRequestClose={closeModal} style={customStyles} contentLabel={t(Localization.LABEL_MODAL)}>
+          <AddEditMovieForm onCloseModal={closeModal} onAddMovie={addNewMovies} onUpdateMovie={updateNewMovies} currentValue={currentMovie} />
         </Modal>
       </div>
     </ErrorBoundary>

@@ -1,4 +1,4 @@
-export const CONSTANTS = {
+export const Localization = {
   FOOTER: 'footer',
   NETFLIX: 'netflix',
   ROULETTE: 'roulette',

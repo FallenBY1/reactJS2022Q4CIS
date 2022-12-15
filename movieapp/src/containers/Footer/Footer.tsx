@@ -1,7 +1,7 @@
 import { useTranslation } from 'react-i18next';
-import { CONSTANTS } from '../../services/constants';
+import { Localization } from '../../services/constants';
 
 export function Footer(): JSX.Element {
   const { t } = useTranslation();
-  return <h1>{t(CONSTANTS.FOOTER)}</h1>;
+  return <h1>{t(Localization.FOOTER)}</h1>;
 }
