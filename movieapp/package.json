@@ -45,11 +45,15 @@
   "description": "My webpack project",
   "dependencies": {
     "@types/react-modal": "^3.13.1",
+    "axios": "^1.2.1",
     "i18next": "^22.0.4",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-i18next": "^12.0.0",
-    "react-modal": "^3.16.1"
+    "react-modal": "^3.16.1",
+    "react-redux": "^8.0.5",
+    "redux": "^4.2.0",
+    "redux-thunk": "^2.4.2"
   },
   "devDependencies": {
     "@babel/core": "^7.19.6",
