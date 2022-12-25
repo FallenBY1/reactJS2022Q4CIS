@@ -9,6 +9,7 @@ import { Localization } from '../../services/constants';
 import { IMovie, MovieType } from '../../models/Movie';
 import { ButtonTypes } from '../../models/enums';
 import useNewMovies from '../../hooks/MovieContext';
+import { useSelector } from 'react-redux';
 
 //move to component avoid duplicate
 const customStyles = {
@@ -23,7 +24,8 @@ const customStyles = {
 };
 
 export function MovieList(props: any): any {
-  const { newMovies, addNewMovies, updateNewMovies, deleteNewMovies } = useNewMovies();
+  const { addNewMovies, updateNewMovies, deleteNewMovies } = useNewMovies();
+  const newMovies = useSelector((state: any) => state.movies);
   const [modalIsOpen, setIsOpen] = useState(false);
   const [currentMovie, setCurrentMovie] = useState<IMovie>({ fullDescription: '', title: '', description: '', id: '' });
   const { t } = useTranslation();
@@ -55,13 +57,14 @@ export function MovieList(props: any): any {
   return (
     <ErrorBoundary>
       <div>
-        {Object.values(newMovies).map((movie: any) => (
-          <Fragment key={movie.id}>
-            <Card title={movie.title} description={movie.description} onClick={() => showDetails(movie.id)} />
-            <Button title={t(Localization.LABEL_EDIT)} type={ButtonTypes.button} onClick={() => openModal(movie.id)} />
-            <Button title={t(Localization.LABEL_DELETE)} type={ButtonTypes.button} onClick={() => deleteMovie(movie.id)} />
-          </Fragment>
-        ))}
+        {newMovies.movies[0] &&
+          newMovies.movies[0].map((movie: any) => (
+            <Fragment key={movie.id}>
+              <Card title={movie.title} description={movie.description} onClick={() => showDetails(movie.id)} />
+              <Button title={t(Localization.LABEL_EDIT)} type={ButtonTypes.button} onClick={() => openModal(movie.id)} />
+              <Button title={t(Localization.LABEL_DELETE)} type={ButtonTypes.button} onClick={() => deleteMovie(movie.id)} />
+            </Fragment>
+          ))}
         <Modal isOpen={modalIsOpen} onRequestClose={closeModal} style={customStyles} contentLabel={t(Localization.LABEL_MODAL)}>
           <AddEditMovieForm onCloseModal={closeModal} onAddMovie={addNewMovies} onUpdateMovie={updateNewMovies} currentValue={currentMovie} />
         </Modal>

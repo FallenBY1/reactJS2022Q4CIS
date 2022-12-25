@@ -1,43 +1,25 @@
-import {useState, createContext, useContext, Context, useMemo, useCallback, useEffect} from 'react';
-import { IMovie, MovieType } from '../models/Movie';
-import {useDispatch, useSelector} from "react-redux";
-import {receiveMoviesFromApiSuccess} from "../actions/actions";
-
-// export const newMoviesMock = [
-//   {
-//     id: 'm3',
-//     title: 'Movie 3',
-//     description: 'Description for Movie 3',
-//     fullDescription: 'Full description for Movie 3'
-//   },
-//   {
-//     id: 'm4',
-//     title: 'Movie 4',
-//     description: 'Description for Movie 4',
-//     fullDescription: 'Full description for Movie 4'
-//   }
-// ];
+import { createContext, useContext, Context, useMemo, useCallback, useEffect } from 'react';
+import { MovieType } from '../models/Movie';
+import { useDispatch, useSelector } from 'react-redux';
+import { receiveMoviesFromApiError, receiveMoviesFromApiSuccess } from '../actions/actions';
+import { AnyAction } from 'redux';
 
 const NewMoviesContext: Context<any> = createContext({
   newMovies: []
 });
 
 export const NewMoviesProvider = ({ children }: { children: any }): any => {
-  // const [newMovies, setNewMovies] = useState<IMovie[]>([]);
-  const newMovies = useSelector((state) => state.movies)
+  const newMovies = useSelector((state: any) => state.movies);
   const dispatch = useDispatch();
 
-  useEffect(()=>{
-   // fetch('', 'GET').then(d=>d.json()).then(movies=>dispatch(actionRecieve(movies)))
-
+  useEffect(() => {
     fetch('http://localhost:4000/movies')
-      .then(res => res.json())
-      .then(movies=>dispatch(receiveMoviesFromApiSuccess(movies)))
+      .then((res) => res.json())
+      .then((movies) => dispatch(receiveMoviesFromApiSuccess(movies.data) as AnyAction))
+      .catch((error) => dispatch(receiveMoviesFromApiError(error) as AnyAction));
+  }, []);
 
-    dispatch((getNewMovies()))
-  }, [])
-
-const setNewMovies = useCallback((movies)=>dispatch(receiveMoviesFromApiSuccess(movies)), [])
+  const setNewMovies = useCallback((movies: any) => dispatch(receiveMoviesFromApiSuccess(movies) as AnyAction), []);
 
   const value = useMemo(() => ({ newMovies, setNewMovies }), [newMovies]);
   return <NewMoviesContext.Provider value={value}>{children}</NewMoviesContext.Provider>;

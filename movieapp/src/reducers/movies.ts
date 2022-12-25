@@ -1,12 +1,10 @@
-import {
-  RECEIVE_MOVIES_FROM_API_SUCCESS,
-  RECEIVE_MOVIES_FROM_API_ERROR } from "../actions/actionTypes";
+import { RECEIVE_MOVIES_FROM_API_SUCCESS, RECEIVE_MOVIES_FROM_API_ERROR, SORT_MOVIES_BY_ID } from '../actions/actionTypes';
 
-let initialState = {
-  movies: [],
+const initialState = {
+  movies: []
 };
 
-function reducer(state = initialState, action: { type: any; payload: any; }) {
+function reducer(state = initialState, action: { type: any; payload: any }): object {
   switch (action.type) {
     case RECEIVE_MOVIES_FROM_API_SUCCESS:
       return {
@@ -16,7 +14,12 @@ function reducer(state = initialState, action: { type: any; payload: any; }) {
     case RECEIVE_MOVIES_FROM_API_ERROR:
       return {
         ...state,
-        error: action.payload.error,
+        error: action.payload.error
+      };
+    case SORT_MOVIES_BY_ID:
+      return {
+        ...state,
+        movies: [...state.movies, action.payload]
       };
     default:
       return state;
