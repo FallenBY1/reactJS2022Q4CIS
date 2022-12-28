@@ -22,17 +22,18 @@ const movieSortCriterias: Array<SortElement> = [
   }
 ];
 
-function SortMovies(e: any): void {
-  const dispatch = useDispatch();
-  fetch('http://localhost:4000/movies?sortBy=' + e.currentTarget.value + '&sortOrder=asc')
-    .then((res) => res.json())
-    .then((movies) => {
-      dispatch(sortMoviesById(movies.data) as AnyAction);
-    })
-    .catch((error) => dispatch(receiveMoviesFromApiError(error) as AnyAction));
-}
-
 export function SortElement(): JSX.Element {
+  const dispatch = useDispatch();
+
+  function SortMovies(e: any): void {
+    fetch('http://localhost:4000/movies?sortBy=' + e.currentTarget.value + '&sortOrder=asc')
+      .then((res) => res.json())
+      .then((movies) => {
+        dispatch(sortMoviesById(movies.data) as AnyAction);
+      })
+      .catch((error) => dispatch(receiveMoviesFromApiError(error) as AnyAction));
+  }
+
   return (
     <select onChange={SortMovies}>
       {movieSortCriterias.map((element) => (

@@ -34,13 +34,13 @@ export function MovieList(props: any): any {
 
   const showDetails = useCallback(
     (id: string): void => {
-      props.setExpandedMovie(newMovies.find((movie: MovieType) => movie.id === id));
+      props.setExpandedMovie(newMovies.movies.find((movie: MovieType) => movie.id === id));
     },
     [props, newMovies]
   );
 
   function openModal(id: string): void {
-    setCurrentMovie(newMovies.filter((movie: MovieType) => movie.id === id)[0]);
+    setCurrentMovie(newMovies.movies[0].filter((movie: MovieType) => movie.id === id)[0]);
     setIsOpen(true);
   }
 

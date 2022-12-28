@@ -29,15 +29,15 @@ const useNewMovies = (): any => {
   const { newMovies, setNewMovies } = useContext(NewMoviesContext);
 
   const deleteNewMovies = (id: string): void => {
-    setNewMovies(newMovies.filter((el: { id: any }) => el.id !== id));
+    setNewMovies(newMovies.movies.filter((el: { id: any }) => el.id !== id));
   };
 
   const addNewMovies = (movieToAdd: MovieType): any => {
-    setNewMovies([...newMovies, movieToAdd]);
+    setNewMovies([...newMovies.movies, movieToAdd]);
   };
 
   const updateNewMovies = (movieToUpdate: MovieType): any => {
-    setNewMovies(newMovies.map((el: { id: any }) => (el.id === movieToUpdate.id ? movieToUpdate : el)));
+    setNewMovies(newMovies.movies.map((el: { id: any }) => (el.id === movieToUpdate.id ? movieToUpdate : el)));
   };
 
   if (NewMoviesContext === undefined) {
