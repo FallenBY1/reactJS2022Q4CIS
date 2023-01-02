@@ -22,19 +22,18 @@ const movieSortCriterias: Array<FilterElement> = [
   }
 ];
 
-function FilterMovies(e: any): void {
-  const dispatch = useDispatch();
-  console.log(e.currentTarget.value);
-  fetch('http://localhost:4000/movies?searchBy=genres&filter=' + e.currentTarget.value + '&sortOrder=asc')
-    .then((res) => res.json())
-    .then((movies) => {
-      console.log(movies);
-      dispatch(sortMoviesById(movies.data) as AnyAction);
-    })
-    .catch((error) => dispatch(receiveMoviesFromApiError(error) as AnyAction));
-}
-
 export function FilterElement(): JSX.Element {
+  const dispatch = useDispatch();
+
+  function FilterMovies(e: any): void {
+    fetch('http://localhost:4000/movies?searchBy=genres&filter=' + e.currentTarget.value + '&sortOrder=asc')
+      .then((res) => res.json())
+      .then((movies) => {
+        dispatch(sortMoviesById(movies.data) as AnyAction);
+      })
+      .catch((error) => dispatch(receiveMoviesFromApiError(error) as AnyAction));
+  }
+
   return (
     <select onChange={FilterMovies}>
       {movieSortCriterias.map((element) => (
