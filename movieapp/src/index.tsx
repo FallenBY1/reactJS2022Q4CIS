@@ -6,7 +6,12 @@ import rootReducer from './reducers';
 import { Provider } from 'react-redux';
 import { composeWithDevTools } from '@redux-devtools/extension';
 
-const store = createStore(rootReducer, composeWithDevTools(applyMiddleware(thunk)));
+const store = createStore(
+  rootReducer,
+  composeWithDevTools(
+    applyMiddleware(thunk)
+  )
+);
 
 function Index(): JSX.Element {
   return <App />;

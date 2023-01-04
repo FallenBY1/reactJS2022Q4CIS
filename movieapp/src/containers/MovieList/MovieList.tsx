@@ -3,7 +3,7 @@ import { ErrorBoundary } from '../../components/ErrorBoundary/ErrorBoundary';
 import { Fragment, useCallback, useState } from 'react';
 import { Button } from '../../components/Button/Button';
 import Modal from 'react-modal';
-import { AddEditMovieForm } from '../AddEditMovieForm/AddEditMovieForm';
+import { WrapperForm } from '../AddEditMovieForm/AddEditMovieForm';
 import { useTranslation } from 'react-i18next';
 import { Localization } from '../../services/constants';
 import { IMovie, MovieType } from '../../models/Movie';
@@ -55,7 +55,8 @@ export function MovieList(props: any): any {
             </Fragment>
           ))}
         <Modal isOpen={modalIsOpen} onRequestClose={closeModal} style={customStyles} contentLabel={t(Localization.LABEL_MODAL)}>
-          <AddEditMovieForm onCloseModal={closeModal} onAddMovie={addNewMovies} onUpdateMovie={updateNewMovies} currentValue={currentMovie} />
+          <WrapperForm onCloseModal={closeModal} onAddMovie={addNewMovies} onUpdateMovie={updateNewMovies} currentValue={currentMovie}/>
+          {/*<AddEditMovieForm onCloseModal={closeModal} onAddMovie={addNewMovies} onUpdateMovie={updateNewMovies} currentValue={currentMovie} />*/}
         </Modal>
       </div>
     </ErrorBoundary>
