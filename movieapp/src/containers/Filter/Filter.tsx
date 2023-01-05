@@ -1,10 +1,11 @@
-import { FilterElement } from './FilterElementTypes';
+import { Filter } from './FilterTypes';
 import { Option } from '../../components/Option/Option';
 import { useDispatch } from 'react-redux';
 import { receiveMoviesFromApiError, sortMoviesById } from '../../actions/actions';
 import { AnyAction } from 'redux';
+import { searchParamsToQueryString } from '../../services/utils';
 
-const movieSortCriterias: Array<FilterElement> = [
+const movieSortCriterias: Array<Filter> = [
   {
     id: '1',
     title: 'Drama',
@@ -22,11 +23,11 @@ const movieSortCriterias: Array<FilterElement> = [
   }
 ];
 
-export function FilterElement(): JSX.Element {
+export function Filter(): JSX.Element {
   const dispatch = useDispatch();
 
-  function FilterMovies(e: any): void {
-    fetch('http://localhost:4000/movies?searchBy=genres&filter=' + e.currentTarget.value + '&sortOrder=asc')
+  function filterMovies(e: any): void {
+    fetch(searchParamsToQueryString({ searchBy: 'genres', filter: e.currentTarget.value, sortBy: '' }))
       .then((res) => res.json())
       .then((movies) => {
         dispatch(sortMoviesById(movies.data) as AnyAction);
@@ -35,7 +36,7 @@ export function FilterElement(): JSX.Element {
   }
 
   return (
-    <select onChange={FilterMovies}>
+    <select onChange={filterMovies}>
       {movieSortCriterias.map((element) => (
         <Option key={element.id} title={element.title} value={element.value} />
       ))}

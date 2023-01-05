@@ -9,7 +9,7 @@ function reducer(state = initialState, action: { type: any; payload: any }): obj
     case RECEIVE_MOVIES_FROM_API_SUCCESS:
       return {
         ...state,
-        movies: [...state.movies, action.payload]
+        movies: action.payload
       };
     case RECEIVE_MOVIES_FROM_API_ERROR:
       return {
@@ -19,7 +19,7 @@ function reducer(state = initialState, action: { type: any; payload: any }): obj
     case SORT_MOVIES_BY_ID:
       return {
         ...state,
-        movies: [action.payload]
+        movies: action.payload
       };
     default:
       return state;

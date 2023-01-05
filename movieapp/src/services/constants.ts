@@ -12,5 +12,14 @@ export const Localization = {
   LABEL_CLOSE: 'label_close',
   LABEL_EDIT: 'label_edit',
   LABEL_DELETE: 'label_delete',
-  SUBMIT: 'submit'
+  SUBMIT: 'submit',
+  SORT_POPULARITY: 'popularity',
+  SORT_RELEASE_DATE: 'release_date',
+  SORT_RATING: 'rating'
+};
+
+export const SortCriteria = {
+  RELEASE_DATE: 'release_date',
+  VOTE_COUNT: 'vote_count',
+  VOTE_AVERAGE: 'vote_average'
 };

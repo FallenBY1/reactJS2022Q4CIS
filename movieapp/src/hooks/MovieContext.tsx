@@ -3,6 +3,7 @@ import { MovieType } from '../models/Movie';
 import { useDispatch, useSelector } from 'react-redux';
 import { receiveMoviesFromApiError, receiveMoviesFromApiSuccess } from '../actions/actions';
 import { AnyAction } from 'redux';
+import { searchParamsToQueryString } from '../services/utils';
 
 const NewMoviesContext: Context<any> = createContext({
   newMovies: []
@@ -13,7 +14,7 @@ export const NewMoviesProvider = ({ children }: { children: any }): any => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    fetch('http://localhost:4000/movies')
+    fetch(searchParamsToQueryString(null))
       .then((res) => res.json())
       .then((movies) => dispatch(receiveMoviesFromApiSuccess(movies.data) as AnyAction))
       .catch((error) => dispatch(receiveMoviesFromApiError(error) as AnyAction));
@@ -29,15 +30,15 @@ const useNewMovies = (): any => {
   const { newMovies, setNewMovies } = useContext(NewMoviesContext);
 
   const deleteNewMovies = (id: string): void => {
-    setNewMovies(newMovies.movies[0].filter((el: { id: any }) => el.id !== id));
+    setNewMovies(newMovies.movies.filter((el: { id: any }) => el.id !== id));
   };
 
   const addNewMovies = (movieToAdd: MovieType): any => {
-    setNewMovies([...newMovies.movies[0], movieToAdd]);
+    setNewMovies([...newMovies.movies, movieToAdd]);
   };
 
   const updateNewMovies = (movieToUpdate: MovieType): any => {
-    setNewMovies(newMovies.movies[0].map((el: { id: any }) => (el.id === movieToUpdate.id ? movieToUpdate : el)));
+    setNewMovies(newMovies.movies.map((el: { id: any }) => (el.id === movieToUpdate.id ? movieToUpdate : el)));
   };
 
   if (NewMoviesContext === undefined) {

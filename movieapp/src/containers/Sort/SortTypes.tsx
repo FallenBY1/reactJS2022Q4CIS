@@ -1,4 +1,4 @@
-export type FilterElement = {
+export type Sort = {
   [id: string]: string;
   title: string;
   value: string;

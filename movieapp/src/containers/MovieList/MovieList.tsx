@@ -10,18 +10,7 @@ import { IMovie, MovieType } from '../../models/Movie';
 import { ButtonTypes } from '../../models/enums';
 import useNewMovies from '../../hooks/MovieContext';
 import { useSelector } from 'react-redux';
-
-//move to component avoid duplicate
-const customStyles = {
-  content: {
-    top: '50%',
-    left: '50%',
-    right: 'auto',
-    bottom: 'auto',
-    marginRight: '-50%',
-    transform: 'translate(-50%, -50%)'
-  }
-};
+import { customStyles } from '../../components/Modal/modal';
 
 export function MovieList(props: any): any {
   const { addNewMovies, updateNewMovies, deleteNewMovies } = useNewMovies();
@@ -40,7 +29,7 @@ export function MovieList(props: any): any {
   );
 
   function openModal(id: string): void {
-    setCurrentMovie(newMovies.movies[0].filter((movie: MovieType) => movie.id === id)[0]);
+    setCurrentMovie(newMovies.movies.find((movie: MovieType) => movie.id === id));
     setIsOpen(true);
   }
 
@@ -57,8 +46,8 @@ export function MovieList(props: any): any {
   return (
     <ErrorBoundary>
       <div>
-        {newMovies.movies[0] &&
-          newMovies.movies[0].map((movie: any) => (
+        {newMovies.movies &&
+          newMovies.movies.map((movie: any) => (
             <Fragment key={movie.id}>
               <Card title={movie.title} description={movie.description} onClick={() => showDetails(movie.id)} />
               <Button title={t(Localization.LABEL_EDIT)} type={ButtonTypes.button} onClick={() => openModal(movie.id)} />
