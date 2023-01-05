@@ -9,17 +9,8 @@ import { HeaderProps } from './HeaderTypes';
 import { ButtonTypes } from '../../models/enums';
 import { MovieDetails } from '../MovieDetails/MovieDetails';
 import useNewMovies from '../../hooks/MovieContext';
+import { customStyles } from '../../components/Modal/modal';
 
-const customStyles = {
-  content: {
-    top: '50%',
-    left: '50%',
-    right: 'auto',
-    bottom: 'auto',
-    marginRight: '-50%',
-    transform: 'translate(-50%, -50%)'
-  }
-};
 Modal.setAppElement('body');
 
 export function Header(props: HeaderProps): JSX.Element {

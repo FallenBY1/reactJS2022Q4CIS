@@ -9,21 +9,12 @@ import { Localization } from '../../services/constants';
 import { IMovie, MovieType } from '../../models/Movie';
 import { ButtonTypes } from '../../models/enums';
 import useNewMovies from '../../hooks/MovieContext';
-
-//move to component avoid duplicate
-const customStyles = {
-  content: {
-    top: '50%',
-    left: '50%',
-    right: 'auto',
-    bottom: 'auto',
-    marginRight: '-50%',
-    transform: 'translate(-50%, -50%)'
-  }
-};
+import { useSelector } from 'react-redux';
+import { customStyles } from '../../components/Modal/modal';
 
 export function MovieList(props: any): any {
-  const { newMovies, addNewMovies, updateNewMovies, deleteNewMovies } = useNewMovies();
+  const { addNewMovies, updateNewMovies, deleteNewMovies } = useNewMovies();
+  const newMovies = useSelector((state: any) => state.movies);
   const [modalIsOpen, setIsOpen] = useState(false);
   const [currentMovie, setCurrentMovie] = useState<IMovie>({ fullDescription: '', title: '', description: '', id: '' });
   const { t } = useTranslation();
@@ -32,13 +23,13 @@ export function MovieList(props: any): any {
 
   const showDetails = useCallback(
     (id: string): void => {
-      props.setExpandedMovie(newMovies.find((movie: MovieType) => movie.id === id));
+      props.setExpandedMovie(newMovies.movies.find((movie: MovieType) => movie.id === id));
     },
     [props, newMovies]
   );
 
   function openModal(id: string): void {
-    setCurrentMovie(newMovies.filter((movie: MovieType) => movie.id === id)[0]);
+    setCurrentMovie(newMovies.movies.find((movie: MovieType) => movie.id === id));
     setIsOpen(true);
   }
 
@@ -55,13 +46,14 @@ export function MovieList(props: any): any {
   return (
     <ErrorBoundary>
       <div>
-        {Object.values(newMovies).map((movie: any) => (
-          <Fragment key={movie.id}>
-            <Card title={movie.title} description={movie.description} onClick={() => showDetails(movie.id)} />
-            <Button title={t(Localization.LABEL_EDIT)} type={ButtonTypes.button} onClick={() => openModal(movie.id)} />
-            <Button title={t(Localization.LABEL_DELETE)} type={ButtonTypes.button} onClick={() => deleteMovie(movie.id)} />
-          </Fragment>
-        ))}
+        {newMovies.movies &&
+          newMovies.movies.map((movie: any) => (
+            <Fragment key={movie.id}>
+              <Card title={movie.title} description={movie.description} onClick={() => showDetails(movie.id)} />
+              <Button title={t(Localization.LABEL_EDIT)} type={ButtonTypes.button} onClick={() => openModal(movie.id)} />
+              <Button title={t(Localization.LABEL_DELETE)} type={ButtonTypes.button} onClick={() => deleteMovie(movie.id)} />
+            </Fragment>
+          ))}
         <Modal isOpen={modalIsOpen} onRequestClose={closeModal} style={customStyles} contentLabel={t(Localization.LABEL_MODAL)}>
           <AddEditMovieForm onCloseModal={closeModal} onAddMovie={addNewMovies} onUpdateMovie={updateNewMovies} currentValue={currentMovie} />
         </Modal>

@@ -1,28 +1,28 @@
-import { useState, createContext, useContext, Context, useMemo } from 'react';
-import { IMovie, MovieType } from '../models/Movie';
-
-export const newMoviesMock = [
-  {
-    id: 'm3',
-    title: 'Movie 3',
-    description: 'Description for Movie 3',
-    fullDescription: 'Full description for Movie 3'
-  },
-  {
-    id: 'm4',
-    title: 'Movie 4',
-    description: 'Description for Movie 4',
-    fullDescription: 'Full description for Movie 4'
-  }
-];
+import { createContext, useContext, Context, useMemo, useCallback, useEffect } from 'react';
+import { MovieType } from '../models/Movie';
+import { useDispatch, useSelector } from 'react-redux';
+import { receiveMoviesFromApiError, receiveMoviesFromApiSuccess } from '../actions/actions';
+import { AnyAction } from 'redux';
+import { searchParamsToQueryString } from '../services/utils';
 
 const NewMoviesContext: Context<any> = createContext({
   newMovies: []
 });
 
 export const NewMoviesProvider = ({ children }: { children: any }): any => {
-  const [newMovies, setNewMovies] = useState<IMovie[]>(newMoviesMock);
-  const value = useMemo(() => ({ newMovies, setNewMovies }), [newMovies]);
+  const newMovies = useSelector((state: any) => state.movies);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    fetch(searchParamsToQueryString(null))
+      .then((res) => res.json())
+      .then((movies) => dispatch(receiveMoviesFromApiSuccess(movies.data) as AnyAction))
+      .catch((error) => dispatch(receiveMoviesFromApiError(error) as AnyAction));
+  }, [dispatch]);
+
+  const setNewMovies = useCallback((movies: any) => dispatch(receiveMoviesFromApiSuccess(movies) as AnyAction), [dispatch]);
+
+  const value = useMemo(() => ({ newMovies, setNewMovies }), [newMovies, setNewMovies]);
   return <NewMoviesContext.Provider value={value}>{children}</NewMoviesContext.Provider>;
 };
 
@@ -30,15 +30,15 @@ const useNewMovies = (): any => {
   const { newMovies, setNewMovies } = useContext(NewMoviesContext);
 
   const deleteNewMovies = (id: string): void => {
-    setNewMovies(newMovies.filter((el: { id: any }) => el.id !== id));
+    setNewMovies(newMovies.movies.filter((el: { id: any }) => el.id !== id));
   };
 
   const addNewMovies = (movieToAdd: MovieType): any => {
-    setNewMovies([...newMovies, movieToAdd]);
+    setNewMovies([...newMovies.movies, movieToAdd]);
   };
 
   const updateNewMovies = (movieToUpdate: MovieType): any => {
-    setNewMovies(newMovies.map((el: { id: any }) => (el.id === movieToUpdate.id ? movieToUpdate : el)));
+    setNewMovies(newMovies.movies.map((el: { id: any }) => (el.id === movieToUpdate.id ? movieToUpdate : el)));
   };
 
   if (NewMoviesContext === undefined) {

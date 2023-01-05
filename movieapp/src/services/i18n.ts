@@ -17,7 +17,10 @@ const resources = {
       label_close: 'Close',
       label_edit: 'Edit',
       label_delete: 'Delete',
-      submit: 'Submit'
+      submit: 'Submit',
+      popularity: 'Popularity',
+      release_date: 'Release Date',
+      rating: 'Rating'
     }
   },
   de: {
@@ -35,7 +38,10 @@ const resources = {
       label_close: 'Close DE',
       label_edit: 'Edit DE',
       label_delete: 'Delete DE',
-      submit: 'Submit DE'
+      submit: 'Submit DE',
+      popularity: 'Popularity DE',
+      release_date: 'Release Date DE',
+      rating: 'Rating DE'
     }
   }
 };

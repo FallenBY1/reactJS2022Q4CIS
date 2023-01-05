@@ -1,5 +1,5 @@
-export type SortElement = {
+export type Filter = {
   [id: string]: string;
   title: string;
-  link: string;
+  value: string;
 };

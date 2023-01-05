@@ -15,8 +15,6 @@ export interface IMovie {
 }
 
 export type MovieState = {
-  // setMovies: Dispatch<SetStateAction<MovieType[]>>;
-  // movies: MovieType[];
   setExpandedMovie: Dispatch<SetStateAction<MovieType | undefined>>;
 };
 
