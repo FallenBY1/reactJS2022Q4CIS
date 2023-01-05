@@ -37,7 +37,7 @@ export function Header(props: HeaderProps): JSX.Element {
       {props.expandedMovie ? <MovieDetails expandedMovie={props.expandedMovie} setExpandedMovie={props.setExpandedMovie} /> : ''}
       <Modal isOpen={modalIsOpen} onRequestClose={closeModal} style={customStyles} contentLabel={t(Localization.LABEL_MODAL)}>
         {/*<AddEditMovieForm  />*/}
-        <WrapperForm onCloseModal={closeModal} onAddMovie={addNewMovies} onUpdateMovie={updateNewMovies} currentValue={{ title: '', description: '', id: '' }}/>
+        <WrapperForm onCloseModal={closeModal} onAddMovie={addNewMovies} onUpdateMovie={updateNewMovies} currentValue={{ title: '', description: '', id: '' }} />
       </Modal>
     </>
   );

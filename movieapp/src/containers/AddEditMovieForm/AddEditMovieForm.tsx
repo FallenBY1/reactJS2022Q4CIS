@@ -6,7 +6,7 @@ import { Movie } from '../../models/Movie';
 import { ButtonTypes } from '../../models/enums';
 import { withFormik, FormikProps, FormikErrors, Form, Field } from 'formik';
 
-interface FormValues extends MovieFormProps{
+interface FormValues extends MovieFormProps {
   id?: string;
   title: string;
   description: string;
@@ -78,17 +78,17 @@ interface WrapperFormProps extends MovieFormProps {
 }
 
 const WrapperForm = withFormik<WrapperFormProps, FormValues>({
-  mapPropsToValues: props => {
+  mapPropsToValues: (props) => {
     return {
       ...props,
       title: props.currentValue.title || '',
       description: props.currentValue.description || '',
-      fullDescription: props.currentValue.fullDescription || '',
+      fullDescription: props.currentValue.fullDescription || ''
     };
   },
 
   validate: (values: FormValues) => {
-    let errors: FormikErrors<FormValues> = {};
+    const errors: FormikErrors<FormValues> = {};
     if (!values.title) {
       errors.title = 'Required';
     }
@@ -98,10 +98,9 @@ const WrapperForm = withFormik<WrapperFormProps, FormValues>({
     return errors;
   },
 
-  handleSubmit: values => {
-    console.log(values);
+  handleSubmit: (values) => {
     submitForm(values);
-  },
+  }
 })(AddEditMovieForm);
 
 export { WrapperForm };
