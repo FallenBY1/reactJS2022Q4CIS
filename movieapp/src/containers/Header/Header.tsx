@@ -2,7 +2,7 @@ import { SearchForm } from '../SearchForm/SearchForm';
 import Modal from 'react-modal';
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { AddEditMovieForm } from '../AddEditMovieForm/AddEditMovieForm';
+import { WrapperForm } from '../AddEditMovieForm/AddEditMovieForm';
 import { Button } from '../../components/Button/Button';
 import { Localization } from '../../services/constants';
 import { HeaderProps } from './HeaderTypes';
@@ -36,7 +36,8 @@ export function Header(props: HeaderProps): JSX.Element {
       {!props.expandedMovie && <SearchForm />}
       {props.expandedMovie ? <MovieDetails expandedMovie={props.expandedMovie} setExpandedMovie={props.setExpandedMovie} /> : ''}
       <Modal isOpen={modalIsOpen} onRequestClose={closeModal} style={customStyles} contentLabel={t(Localization.LABEL_MODAL)}>
-        <AddEditMovieForm onCloseModal={closeModal} onAddMovie={addNewMovies} onUpdateMovie={updateNewMovies} currentValue={{ title: '', description: '', id: '' }} />
+        {/*<AddEditMovieForm  />*/}
+        <WrapperForm onCloseModal={closeModal} onAddMovie={addNewMovies} onUpdateMovie={updateNewMovies} currentValue={{ title: '', description: '', id: '' }} />
       </Modal>
     </>
   );

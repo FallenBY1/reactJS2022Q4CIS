@@ -9,6 +9,7 @@ import { useTranslation } from 'react-i18next';
 
 export function Sort(): JSX.Element {
   const { t } = useTranslation();
+  const dispatch = useDispatch();
 
   const movieSortCriterias: Array<Sort> = [
     {
@@ -27,8 +28,6 @@ export function Sort(): JSX.Element {
       value: SortCriteria.VOTE_AVERAGE
     }
   ];
-
-  const dispatch = useDispatch();
 
   function sortMovies(e: any): void {
     fetch(searchParamsToQueryString({ searchBy: '', filter: '', sortBy: e.currentTarget.value }))
