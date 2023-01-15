@@ -3,12 +3,15 @@ import { Option } from '../../components/Option/Option';
 import { useDispatch } from 'react-redux';
 import { receiveMoviesFromApiError, sortMoviesById } from '../../actions/actions';
 import { AnyAction } from 'redux';
-import { searchParamsToQueryString } from '../../services/utils';
+import { searchParamsToQueryString, updateBrowserUrl } from '../../services/utils';
 import { SortCriteria } from '../../services/constants';
 import { useTranslation } from 'react-i18next';
+import { useNavigate } from 'react-router-dom';
 
 export function Sort(): JSX.Element {
   const { t } = useTranslation();
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const movieSortCriterias: Array<Sort> = [
     {
@@ -28,10 +31,10 @@ export function Sort(): JSX.Element {
     }
   ];
 
-  const dispatch = useDispatch();
-
   function sortMovies(e: any): void {
-    fetch(searchParamsToQueryString({ searchBy: '', filter: '', sortBy: e.currentTarget.value }))
+    const searchParams = { sortBy: e.currentTarget.value };
+    navigate('?' + updateBrowserUrl(searchParams), { replace: true });
+    fetch(searchParamsToQueryString(searchParams))
       .then((res) => res.json())
       .then((movies) => {
         dispatch(sortMoviesById(movies.data) as AnyAction);
