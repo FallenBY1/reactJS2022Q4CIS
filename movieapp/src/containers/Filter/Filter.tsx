@@ -3,7 +3,8 @@ import { Option } from '../../components/Option/Option';
 import { useDispatch } from 'react-redux';
 import { receiveMoviesFromApiError, sortMoviesById } from '../../actions/actions';
 import { AnyAction } from 'redux';
-import { searchParamsToQueryString } from '../../services/utils';
+import { searchParamsToQueryString, updateBrowserUrl } from '../../services/utils';
+import { useNavigate } from 'react-router-dom';
 
 const movieSortCriterias: Array<Filter> = [
   {
@@ -25,9 +26,12 @@ const movieSortCriterias: Array<Filter> = [
 
 export function Filter(): JSX.Element {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   function filterMovies(e: any): void {
-    fetch(searchParamsToQueryString({ searchBy: 'genres', filter: e.currentTarget.value, sortBy: '' }))
+    const searchStringParams = { searchBy: 'genres', genre: e.currentTarget.value };
+    navigate('?' + updateBrowserUrl(searchStringParams), { replace: true });
+    fetch(searchParamsToQueryString(searchStringParams))
       .then((res) => res.json())
       .then((movies) => {
         dispatch(sortMoviesById(movies.data) as AnyAction);

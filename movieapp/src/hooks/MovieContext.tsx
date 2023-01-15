@@ -4,14 +4,16 @@ import { useDispatch, useSelector } from 'react-redux';
 import { receiveMoviesFromApiError, receiveMoviesFromApiSuccess, sendMovieToApiSuccess } from '../actions/actions';
 import { AnyAction } from 'redux';
 import { searchParamsToQueryString } from '../services/utils';
+import { useLocation } from 'react-router-dom';
+import queryString from 'query-string';
 
 const NewMoviesContext: Context<any> = createContext({
   newMovies: []
 });
 
-const getMoviesThunk = () => {
+const getMoviesThunk = (params: any) => {
   return async (dispatch: any) => {
-    fetch(searchParamsToQueryString(null))
+    fetch(searchParamsToQueryString(params))
       .then((res) => res.json())
       .then((movies) => setTimeout(() => dispatch(receiveMoviesFromApiSuccess(movies.data) as AnyAction), 1000))
       .catch((error) => setTimeout(() => dispatch(receiveMoviesFromApiError(error) as AnyAction), 1000));
@@ -21,17 +23,19 @@ const getMoviesThunk = () => {
 export const NewMoviesProvider = ({ children }: { children: any }): any => {
   const newMovies = useSelector((state: any) => state.movies);
   const dispatch = useDispatch();
+  const location = useLocation();
+  const searchParams = queryString.parse(location.search);
 
   useEffect(() => {
     // @ts-ignore
-    dispatch(getMoviesThunk());
-  }, [dispatch]);
+    dispatch(getMoviesThunk(searchParams));
+  }, [dispatch, searchParams]);
 
   const setNewMovies = useCallback(() => {
-    fetch(searchParamsToQueryString(null))
+    fetch(searchParamsToQueryString(searchParams))
       .then((res) => res.json())
       .then((movies) => dispatch(sendMovieToApiSuccess(movies) as AnyAction));
-  }, [newMovies]);
+  }, [dispatch, searchParams]);
 
   const value = useMemo(() => ({ newMovies, setNewMovies }), [newMovies, setNewMovies]);
   return <NewMoviesContext.Provider value={value}>{children}</NewMoviesContext.Provider>;
