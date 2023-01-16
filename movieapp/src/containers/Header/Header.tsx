@@ -32,7 +32,7 @@ export function Header(props: HeaderProps): JSX.Element {
         <b>{t(Localization.NETFLIX)}</b>
         {t(Localization.ROULETTE)}
       </h1>
-      <Button type={ButtonTypes.button} onClick={openModal} title={t(Localization.ADD_MOVIE)} />
+      <Button type={ButtonTypes.button} onClick={openModal} aria-label={t(Localization.ADD_MOVIE)} title={t(Localization.ADD_MOVIE)} />
       {!props.expandedMovie && <SearchForm />}
       {props.expandedMovie ? <MovieDetails expandedMovie={props.expandedMovie} setExpandedMovie={props.setExpandedMovie} /> : ''}
       <Modal isOpen={modalIsOpen} onRequestClose={closeModal} style={customStyles} contentLabel={t(Localization.LABEL_MODAL)}>

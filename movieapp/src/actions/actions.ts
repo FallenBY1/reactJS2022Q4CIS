@@ -11,7 +11,7 @@ export function receiveMoviesFromApiSuccess(movies: any): object {
 export function receiveMoviesFromApiError(error: any): object {
   return {
     type: RECEIVE_MOVIES_FROM_API_ERROR,
-    payload: { error }
+    payload: error
   };
 }
 

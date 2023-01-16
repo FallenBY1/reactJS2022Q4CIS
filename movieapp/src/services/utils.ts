@@ -1,4 +1,6 @@
-import queryString, { ParsedQuery } from 'query-string';
+// import queryString, { ParsedQuery } from 'query-string';
+
+import { parse, stringify } from '@billjs/query-string';
 
 type SearchParams = {
   searchBy: string;
@@ -8,11 +10,11 @@ type SearchParams = {
   movie: string;
 };
 
-export function updateBrowserUrl(params: SearchParams | queryString.ParsedQuery): string {
-  return queryString.stringify({ ...queryString.parseUrl(window.location.href).query, ...params });
+export function updateBrowserUrl(params: SearchParams | any): string {
+  return stringify({ ...parse(window.location.href).query, ...params });
 }
 
-export function searchParamsToQueryString(params: SearchParams | ParsedQuery): string {
+export function searchParamsToQueryString(params: SearchParams | any): string {
   let searchString: string | Array<string | null> = '';
   let searchEndpoint = 'http://localhost:4000/movies?';
   let searchStringAddon = `&searchBy=title&sortBy=${params?.sortBy || 'id'}&sortOrder=desc`;

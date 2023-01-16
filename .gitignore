@@ -8,3 +8,4 @@ moviesApi/
 dev/
 build/
 dist/
+/movieapp/coverage/

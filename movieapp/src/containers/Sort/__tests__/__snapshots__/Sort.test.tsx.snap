@@ -1,0 +1,24 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Sort container should be rendered 1`] = `
+<select
+  aria-label="sort"
+  onChange={[Function]}
+>
+  <option
+    value="vote_count"
+  >
+    popularity
+  </option>
+  <option
+    value="release_date"
+  >
+    release_date
+  </option>
+  <option
+    value="vote_average"
+  >
+    rating
+  </option>
+</select>
+`;

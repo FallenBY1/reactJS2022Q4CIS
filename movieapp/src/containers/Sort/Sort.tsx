@@ -43,7 +43,7 @@ export function Sort(): JSX.Element {
   }
 
   return (
-    <select onChange={sortMovies}>
+    <select aria-label="sort" onChange={sortMovies}>
       {movieSortCriterias.map((element) => (
         <Option key={element.id} title={element.title} value={element.value} />
       ))}
